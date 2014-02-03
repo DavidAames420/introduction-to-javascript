@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>JavaScript - An Introduction</title>
+
+		<meta name="description" content="Introduction to JavaScript programming language & web APIs">
+		<meta name="author" content="Mohammed Shalaby">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style>
+      /*********************************************
+       * mshalaby overrides
+       ********************************************/
+      .reveal pre {
+        font-size: .75em;
+      }
+
+      .reveal pre code {
+        max-height: 500px;
+        word-wrap: break-word;
+      }
+    </style>
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <section id="title-slide">
+          <h1>JavaScript</h1>
+          <h3>An Introduction</h3>
+          <p>
+            <small>by Mohammed Shalaby</small>
+          </p>
+        </section>
+
+        <section>
+
+          <section>
+            <h2>HTML</h2>
+            <p>Provides structure & semantic content</p>
+            <pre><code data-trim >
+<p>This is a paragraph</p>
+<ul>
+  <li>item</li>
+  <li>another item</li>
+</ul>
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>CSS</h2>
+            <p>Provides style</p>
+            <pre><code data-trim >
+<style>
+  li.selected { background: yellow; }
+</style>
+            ...
+<p>This is a paragraph</p>
+<ul>
+  <li class="selected">item</li>
+  <li>another item</li>
+</ul>
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>JavaScript</h2>
+            <p>Provides interactivity</p>
+            <pre><code data-trim >
+<style>
+  li.selected { background: yellow; }
+</style>
+
+<script>
+  function clickHandler(event) {
+    event.target.classList.add('selected');
+  }
+</script>
+            ...
+<p>This is a paragraph</p>
+<ul onclick="clickHandler(event)">
+  <li>item</li>
+  <li>another item</li>
+</ul>
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>JavaScript</h1>
+            <h2>(ECMAScript)</h2>
+          </section>
+
+          <section>
+            <p>The core language</p>
+            <p>Also used in non-browser environments e.g. <a href="http://nodejs.org" target="_blank">node.js</a></p>
+          </section>
+
+          <section>
+            <p>Porvides:</p>
+            <ul>
+              <li>Syntax</li>
+              <li>Types</li>
+              <li>Inheritance</li>
+              <li>Built-in Objects</li>
+              <li>Error handling</li>
+              <li>Global object (Non-browser APIs)</li>
+            </ul>
+          </section>
+        </section>
+
+        <section id="types">
+           <section>
+              <h2>Types (Values)</h2>
+            </section>
+
+            <section>
+            <h3>Simple types</h3>
+            <ul>
+              <li>Numbers</li>
+              <li>Strings</li>
+              <li>Booleans</li>
+              <li>null</li>
+              <li>undefined</li>
+            </ul>
+            </section>
+
+            <section>
+              <h3>Objects</h3>
+            </section>
+        </section>
+
+        <section id="numbers">
+          <section>
+            <h2>Numbers</h2>
+          </section>
+          <section>
+            <p>Only one number type</p>
+            <p>100, 100.0, 1e2 are equivalent</p>
+            <p>64-bit floating point (same as Java's double)</p>
+            <pre><code>0.1 + 0.2      // 0.30000000000000004</code></pre>
+          </section>
+
+          <section>
+            <h3>NaN (Not a Number)</h3>
+              <p>Special Number</p>
+              <pre><code>typeof NaN       // "number"</code></pre>
+              <p>Result of erroneous operations</p>
+              <pre><code>2 * 'a'          // NaN</code></pre>
+              <p>Toxic</p>
+              <pre><code>5 + NaN          // NaN</code></pre>
+              <p>Not equal to any value (including itself)</p>
+              <pre><code>NaN == NaN       // false
+
+isNaN(NaN)       // true</code></pre>
+          </section>
+
+          <section>
+            <h3>Infinity</h3>
+            <p>Special Number</p>
+            <pre><code> 1 / 0           // Infinity
+
+ 1 / Infinity    // 0
+
+-1 / 0           // -Infinity</code></pre>
+            <p>Represents numbers > <code>1.79769313486231580e+308</code></p>
+            <pre><code>1.8e308          // Infinity</code></pre>
+          </section>
+
+          <section>
+            <h3>isFinite function</h3>
+            <p>You can use it to check for Infinity, -Infinity & NaN</p>
+            <pre><code>isFinite(NaN)          // false
+
+isFinite(Infinity)     // false
+
+isFinite(-Infinity)    // false
+
+isFinite(1.7e+308)     // true</code></pre>
+          </section>
+
+          <section>
+            <h3>Number function</h3>
+            <p>Converts a value into a number</p>
+            <pre><code>Number('')          // 0
+
+Number('0032')      // 32
+
+Number('123abc')    // NaN
+
+Number('abc')       // NaN</code></pre>
+            <p>So does the '+' prefix operator</p>
+            <pre><code>+''                // 0
+
++'0032'            // 32
+
++'123abc'          // NaN
+
++'abc'             // NaN</code></pre>
+          </section>
+
+          <section>
+            <h3>parseInt function</h3>
+            <p>Also converts a value into a number</p>
+            <pre><code>parseInt('123', 10)     // 123</code></pre>
+            <p>Stops at first non-digit character</p>
+            <pre><code>parseInt('123abc', 10)     // 123</code></pre>
+            <p>If no radix is passed it defaults to 10</p>
+            <pre><code data-trim>
+parseInt('32')         // 32   (as decimal)
+            </code></pre>
+            <p>Always specify the radix</p>
+            <pre><code data-trim>
+parseInt('0032', 10)   // 32
+
+parseInt('0032', 8)    // 26
+
+parseInt('11', 2)      //  3
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Math</h3>
+            <p>An object containing methods that act on numbers</p>
+            <small>abs, acos, asin, atan, atan2, ceil, cos, exp, floor, log, max, min, pow, random, round, sin, sqrt, tan</small>
+            <pre><code data-trim>
+Math.floor(12.53)          // 12
+            </code></pre>
+            <p>Also contains some useful constants</p>
+            <small>E, LN10, LN2, LOG10E, LOG2E, PI, SQRT1_2, SQRT2</small>
+            <pre><code data-trim>
+Math.PI                   // 3.141592653589793
+            </code></pre>
+          </section>
+        </section>
+
+
+
+
+
+        <section id="strings">
+
+          <section>
+            <h2>Strings</h2>
+          </section>
+
+          <section>
+            <p>0 or more 16-bit characters</p>
+            <p>A character is just a String of length 1</p>
+            <p>Immutable</p>
+          </section>
+
+          <section>
+            <h3>length</h3>
+            <p>number of 16-bit characters</p>
+            <pre><code>'abc'.length      // 3</code></pre>
+          </section>
+
+          <section>
+            <h3>String literal</h3>
+            <pre><code>'abc' == "abc"    // true</code></pre>
+          </section>
+          <section>
+            <h3>Concatenation</h3>
+            <pre><code>'Java' + 'Script'     // 'JavaScript'</code></pre>
+          </section>
+
+          <section>
+            <h3>String function</h3>
+            <p>Converts a value into a string</p>
+            <pre><code>String(123)           // '123'</code></pre>
+            <p>Another way</p>
+            <pre><code>'' + 123           // '123'</code></pre>
+          </section>
+
+          <section>
+            <h3>String methods</h3>
+            <p>some examples</p>
+            <pre><code data-trim>
+'cat'.toUpperCase()               // 'CAT'
+'bat'.charAt(1)                   // 'a'
+'hello'.replace(/llo/, 'y')       // 'hey'
+'Alexandria'.indexOf('x')         // 3
+'banana'.lastIndexOf('n')         // 4
+'world wide web'.match(/(w\w*)/g) // ["world", "wide", "web"]
+            </code></pre>
+          </section>
+
+        </section>
+
+
+        <section id="boolean">
+
+          <section>
+            <h2>Boolean</h2>
+          </section>
+
+          <section>
+            <p>true - false</p>
+          </section>
+
+          <section>
+            <h3>Boolean function</h3>
+            <p>Converts a value into a boolean</p>
+            <pre><code data-trim>
+Boolean(value)       // true or false
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>!! prefex operator</h3>
+            <pre><code data-trim>
+!! value       // true or false
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Falsy values</h3>
+            <p>6 possible falsy values</p>
+            <pre><code data-trim>
+!! false         // false
+
+!! null          // false
+
+!! undefined     // false
+
+!! ''            // false
+
+!! 0             // false
+
+!! NaN           // false
+             </code></pre>
+             <p>All other values are truthy</p>
+             <pre><code>!! '0'          // true</code></pre>
+          </section>
+
+        </section>
+
+        <section>
+
+          <section>
+            <h2>null & undefined</h2>
+          </section>
+
+          <section>
+            <h2>null</h2>
+            <p>A deliberate non-value</p>
+            <pre><code data-trim>
+var a = null;
+
+typeof a;     // 'object'
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>undefined</h2>
+              <p>An uninitialized value</p>
+              <pre><code data-trim>
+var a;
+
+typeof a;     // 'undefined'
+              </code></pre>
+          </section>
+        </section>
+
+
+        <section id="objects">
+          <section>
+            <h2>Objects</h2>
+          </section>
+
+          <section>
+            <p>An object is a container of properties</p>
+          </section>
+
+          <section>
+            <h3>Object constructor</h3>
+            <p>A built in function for creating objects</p>
+            <pre><code>var object = new Object();</code></pre>
+          </section>
+
+          <section id="object-literal">
+            <h3>Object literal</h3>
+            <p>Very convenient for creating new objects</p>
+            <pre><code>var object = {};</code></pre>
+            <pre><code>var person = { 'first-name': 'John' };</code></pre>
+            <pre><code data-trim>
+var city = {
+  name: 'Alexandria',
+  location: { latitude: 31.2, longitude: 29.9 }
+};
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Reference</h3>
+            <p>Passed around by reference</p>
+            <pre><code>var a = b = c = {};              // the same empty object</code></pre>
+            <pre><code>var a = {}, b = {}, c = {};      // different empty objects</code></pre>
+          </section>
+
+          <section>
+            <h3>Property access</h3>
+            <pre><code data-trim>
+person['first-name']            // 'John'
+
+person['last-name'] = 'Smith';
+
+person.age = 28;
+            </code></pre>
+            <p>Missing properties</p>
+            <pre><code>person.nickname        // undefined</code></pre>
+          </section>
+
+          <section>
+            <h3>delete</h3>
+            <p>removes properties</p>
+            <pre><code data-trim>
+var person = { name: 'John', age: 20 };
+
+delete person.age;
+
+person.age                       // undefined</code></pre>
+          </section>
+
+          <section>
+            <h3>Prototype</h3>
+            <p>Every object is linked to a prototype object</p>
+            <p>Provides inheritance</p>
+            <p>Protypes hold common functionality & data</p>
+          </section>
+
+          <section>
+              <p>Specifying a prototype</p>
+              <pre><code data-trim>
+var p = {foo: 'bar'};
+
+var a = Object.create(p);
+var b = Object.create(p);
+
+a.foo          // 'bar'
+b.foo          // 'bar'
+              </code></pre>
+          </section>
+
+          <section>
+              <p>Another way</p>
+              <pre><code data-trim>
+function A (){
+}
+
+A.prototype = {foo: 'bar'};
+
+var a = new A();
+var b = new A();
+
+a.foo          // 'bar'
+b.foo          // 'bar'
+              </code></pre>
+          </section>
+
+          <section>
+            <p>Masking a prototype property</p>
+            <pre><code data-trim>
+a.foo = 'blah';  // Added foo property to a
+a.foo            // 'blah'
+b.foo            // 'bar'
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section id="functions-objects">
+          <section>
+            <h2>Functions</h2>
+          </section>
+
+          <section>
+            <p>The best thing in JavaScript</p>
+            <p>Functions are objects</p>
+            <p>A function has a prototype property</p>
+            <p>Code reuse, Information hiding</p>
+          </section>
+
+          <section>
+            <h3>Function Literal</h3>
+            <p>4 parts:</p>
+            <pre><code data-trim>function add (a, b) {
+  return a + b;
+};
+
+add(1, 2)            // 3
+          </code></pre>
+          </section>
+
+          <section>
+            <h3>Functions as Methods</h3>
+            <p>When stored as a property of an object</p>
+            <pre><code data-trim>
+var counter = {
+  value: 0,
+  increment: function (inc) {
+    this.value += inc;
+  }
+};
+
+counter.increment(2);
+
+counter.value;                      // 3</code></pre>
+          </section>
+
+          <section>
+            <h3>Functions as Constructors</h3>
+              <p>Invoked with <code>new</code> prefix</p>
+              <p>New object linked to function's prototype property</p>
+                <pre><code data-trim>
+function Car (speed) {
+  this.speed = speed;
+};
+
+Car.prototype.move = function() {
+  return 'moving at ' + this.speed;
+};
+
+var my_car = new Car('40 k/h');
+var racing_car = new Car('200 k/h');
+
+my_car.move();                 // moving at 40 k/h
+racing_car.move();             // moving at 200 k/h
+                </code></pre>
+          </section>
+
+          <section>
+            <h3>Apply</h3>
+            <p><code>apply</code> is a method of functions</p>
+            <p>2 parameters: value for <code>this</code> & array of arguments</h3>
+              <pre><code data-trim>
+var counter = { value: 1 };
+
+function increment (inc) {
+  this.value += inc;
+}
+
+increment.apply(counter, [3]);
+
+counter.value             // 4
+              </code></pre>
+          </section>
+
+          <section>
+            <h3>Arguments</h3>
+              <p>array-like object holding passed parameters</p>
+                <pre><code data-trim>
+function sum () {
+  var i, s = 0;
+
+  for (i = 0; i < arguments.length; i += 1) {
+      s += arguments[i];
+  }
+
+  return s;
+};
+
+sum(4, 8, 15, 16, 23, 42)         // 108
+          </code></pre>
+          </section>
+
+          <section>
+            <h2>Scope</h2>
+            <p>No block scope</p>
+            <p>Only function scope</p>
+            <pre><code data-trim>
+function foo () {
+  var a = 3, b = 5;
+
+  var bar = function () {
+    var b = 7, c = 11;
+    a += b + c;
+  };
+
+  bar();
+};
+          </code></pre>
+          </section>
+
+          <section>
+            <h2>Closure</h2>
+            <p>Inner functions have access to outer function's parameters and variables.</p>
+            <pre><code data-trim>
+function incrementMaker(val) {
+  var step = 2;
+
+  return function (){
+    val += step;
+
+    return val;
+  };
+}
+
+var increment = incrementMaker(3);
+
+increment();              // 5
+increment();              // 7
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section id="Arrays">
+          <section>
+            <h2>Arrays</h2>
+          </section>
+          
+          <section>
+            <p>Array-like objects</p>
+            <p>No linear allocated memory or computed offest access</p>
+          </section>
+
+          <section>
+            <h3>Array Literal</h>
+            <pre><code data-trim>
+var a = [];
+var misc = [
+  'string',
+  98.6,
+  true,
+  null,
+  undefined,
+  ['nested', 'array'],
+  {x: 1}
+];
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>length</h3>
+            <p>length property is not upper bound</p>
+            <pre><code data-trim>
+var a = [];
+a.length          // 0
+a[10] = 1;
+a.length          // 11
+a[4]              // undefined
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Array methods</h3>
+            <pre><code data-trim>
+var a = [0, 4, 9];
+a.toString()
+a.toLocaleString()
+a.concat(item [,itemN]) // Returns a new array with added items
+a.join(sep)             // Joins array elements into a string
+a.pop()	                // Removes and returns the last item
+a.push(item [,itemN])   // Adds one or more items to the end
+a.reverse()             // [9, 4, 0]
+a.shift()               // Removes and returns the first item
+a.slice(start, end)     // Returns a sub-array
+a.sort([cmpfn])         // Takes an optional comparison function
+a.splice(start, delcount[, itemN]) // modify by replacing a section
+a.unshift([item])       // Add one item to the start
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>Manipulating the HTML</h1>
+        </section>
+
+        <section>
+          <section>
+            <h2>How to run JavaScript in a Webpage?</h2>
+          </section>
+
+          <section>
+            <h3>Directly within HTML script element</h3>
+            <p>Script element with code inside</p>
+            <pre><code data-trim>
+&lt;script src="script.js"&gt;
+  alert('Hello');
+&lt;/script&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Using a separate file</h3>
+            <p>Store source code in a separate file e.g. 'scripts.js'</p>
+            <pre><code data-trim>
+alert('Hello');
+            </code></pre>
+            <p>Script element with src attribute</p>
+            <p>Browser issues a request for it</p>
+            <pre><code data-trim>
+&lt;script src="script.js"&gt;&lt;/script&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Address Bar!</h3>
+            <p>preceded by "javascript:"</p>
+            <pre><code data-trim>
+javascript:alert('hello')
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>href of an anchor</h3>
+            <p>code also preceded by "javascript:"</p>
+            <pre><code data-trim>
+<a href="javascript:alert('hello');">click me</a>
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Event handler attributes of elements</h3>
+            <pre><code data-trim>
+&lt;input type="button" onclick="alert('hello');" value="Click Me" /&gt;
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Accessing the HTML elements</h2>
+          </section>
+
+          <section>
+            <h3>The <code>document</code> object</h3>
+            <p>Provided by the browser to represent the tree of HTML nodes</p>
+          </section>
+
+          <section>
+            <h3>By id</h3>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;p id="my-element"&gt;Text here&lt;/p&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var p = document.getElementById('my-element');
+p.innerHTML // "Text here"
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>By tag name</h3>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div&gt;
+  &lt;p&gt;One&lt;/p&gt;
+  &lt;p&gt;Two&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Three&lt;/p&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var paragraphs = document.getElementsByTagName('p');  // returns an array
+paragraphs[1].innerHTML      // Two
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Creating HTML elements</h2>
+          </section>
+
+          <section>
+            <h3>Appending to an existing element</h3>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var container = document.getElementById('container');
+
+var p = document.createElement('p');
+p.innerHTML = "Some text"
+
+container.appendChild(p);
+            </code></pre>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+  &lt;p&gt;Some text&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Setting innerHTML</h3>
+            <p>Allows creating multiple / nested elements</p>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var container = document.getElementById('container');
+
+container.innerHTML = '<p>One</p><p>Two<span>!</span></p>';
+            </code></pre>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+  &lt;p&gt;One&lt;/p&gt;
+  &lt;p&gt;Two&lt;span&gt;!&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Handling Events on Elements</h2>
+          </section>
+
+          <section>
+            <h3>Document loadded?</h3>
+            <p>script</p>
+            <pre><code data-trim>
+window.onload = function () {
+  alert('ready');
+};
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Click Events</h3>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+  &lt;p&gt;One&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var container = document.getElementById('container');
+
+container.onclick = function (event) {
+  alert(event.target.tagName);
+};
+            </code></pre>
+            <p>alerts 'p' on clicking the p element</p>
+          </section>
+
+          <section>
+            <h3>Keyboard Events</h3>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div&gt;
+  &lt;input id="my-input" type="text" /&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var inputElement = document.getElementById('my-input');
+
+container.onkeyup = function (event) {
+  alert(event.keyCode);
+};
+            </code></pre>
+            <p>alerts 13 on pressing the Enter key</p>
+          </section>
+
+          <section>
+            <h3>For Modern Browsers</h3>
+            <p>use <code>addEventListener</code></p>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+  &lt;p&gt;One&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var container = document.getElementById('container');
+
+container.addEventListener('click', function (event) {
+  alert(event.target.tagName);
+}, true);
+            </code></pre>
+            <p>alerts 'p' on clicking the p element</p>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Removing Elements</h2>
+          </section>
+
+          <section>
+            <h3>removeChild</h3>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+  &lt;p&gt;One&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>script</p>
+            <pre><code data-trim>
+var container = document.getElementById('container');
+var p = container.firstChild;
+
+container.removeChild(p);
+            </code></pre>
+            <p>html</p>
+            <pre><code data-trim>
+&lt;div id="container" &gt;
+&lt;/div&gt;
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Resources</h1>
+          </section>
+
+          <section>
+            <h2>Mozilla Developer Network</h2>
+            <p><a href="https://developer.mozilla.org/en-US/docs/DOM">Document Object Model (DOM) | MDN</a></p>
+            <p><a href="https://developer.mozilla.org/en-US/learn/javascript">Learn JavaScript | MDN</a></p>
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">A re-introduction to JavaScript (JS Tutorial) - JavaScript | MDN</a></p>
+          </section>
+
+          <section>
+            <h2>Douglas Crockford</h2>
+            <p><a href="http://javascript.crockford.com">Douglas Crockford's Javascript</a></p>
+            <p><a href="http://www.amazon.com/exec/obidos/ASIN/0596517742/wrrrldwideweb">JavaScript: The Good Parts</a></p>
+          </section>
+        </section>
+
+        <section>
+          <h1>Q & A!</h1>
+        </section>
+
+        <section>
+          <h1>Thank You!</h1>
+        </section>
+      </div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 800,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 1.0,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { console.log(hljs);hljs.configure({languages: ['javascript', 'html'] });hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

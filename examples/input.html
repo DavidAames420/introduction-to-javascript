@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <style>
+      .remove {
+        cursor: pointer;
+      }
+    </style>
+
+    <script>
+      function loadItems(callback) {
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            if (callback) { callback(JSON.parse(this.responseText)) }
+          }
+        }
+
+        xmlhttp.open("GET","items.json",true);
+        xmlhttp.send();
+      }
+
+      function addItems(items) {
+        for (var i = 0; i < items.length; i++) {
+          addItem(items[i]);
+        }
+      }
+
+      function removeItem(item) {
+        var container = document.getElementById('container');
+
+        container.removeChild(item);
+      }
+
+      function addItem(title) {
+        var container = document.getElementById('container');
+
+        var newItem = document.createElement('li');
+
+        newItem.innerHTML = title + ' <span class="remove">(x)</span>';
+
+        container.appendChild(newItem);
+      }
+
+      function ready() {
+        var i = document.getElementById('add-item');
+
+        i.onkeyup = function(event) {
+          if (event.keyCode == 13) {
+            addItem(i.value);
+
+            i.value = '';
+          }
+        };
+
+        var container = document.getElementById('container');
+
+        container.onclick = function(event) {
+          if (event.target.classList.contains('remove')) {
+            removeItem(event.target.parentNode)
+          }
+        }
+
+        var loadButton = document.getElementById('load-items');
+
+        loadButton.addEventListener('click', function(event) {
+          loadItems(addItems);
+        }, false);
+      }
+
+      window.onload = ready;
+    </script>
+  </head>
+
+  <body>
+    <input id="add-item" type="text"/>
+
+    <input type="button" id="load-items" value="Load!"/>
+    <p>My nice list</p>
+    <ul id="container">
+      <li>item <span class='remove'>(x)</span></li>
+      <li>another item <span class='remove'>(x)</span></li>
+    </ul>
+  </body>
+</html>
+
