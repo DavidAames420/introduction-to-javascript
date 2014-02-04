@@ -531,6 +531,7 @@ var counter = {
 };
 
 counter.increment(2);
+counter.increment(1);
 
 counter.value;                      // 3</code></pre>
           </section>
@@ -703,7 +704,7 @@ a.unshift([item])       // Add one item to the start
             <h3>Directly within HTML script element</h3>
             <p>Script element with code inside</p>
             <pre><code data-trim>
-&lt;script src="script.js"&gt;
+&lt;script&gt;
   alert('Hello');
 &lt;/script&gt;
             </code></pre>
@@ -719,6 +720,15 @@ alert('Hello');
             <p>Browser issues a request for it</p>
             <pre><code data-trim>
 &lt;script src="script.js"&gt;&lt;/script&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Using a separate file from external sites</h3>
+            <p>Set the src attribute to the URL for the external file</p>
+            <p>Browser issues a request for it</p>
+            <pre><code data-trim>
+&lt;script src="http://code.jquery.com/jquery-1.11.0.min.js"&gt;&lt;/script&gt;
             </code></pre>
           </section>
 
@@ -943,6 +953,51 @@ container.removeChild(p);
 &lt;div id="container" &gt;
 &lt;/div&gt;
             </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Speaking to the Server!!</h2>
+          </section>
+
+          <section>
+            <h3>XMLHttpRequest ?? WHAT??!!</h3>
+            <p>Never mind this function... for now :)</p>
+            <pre><code data-trim>
+function request(url, callback) {
+  var xmlhttp = new XMLHttpRequest();
+
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      if (callback) { callback(this.responseText) }
+    }
+  }
+
+  xmlhttp.open("GET",url ,true);
+  xmlhttp.send();
+}
+            </code></pre>
+            <p>It wraps the complexity of talking to the server for you.</p>
+            <p>And allows you to just use this simple call</p>
+            <pre><code data-trim>
+request('items.json', function(responseText){
+  // Do somthing with the response text
+  console.log(JSON.parse(responseText));
+});
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Demo</h1>
+          </section>
+
+          <section>
+            <h2>Links</h2>
+            <p><a href="http://mshalaby.github.io/introduction-to-javascript/examples/input.html">Demo page</a></p>
+            <p><a href="https://github.com/mshalaby/introduction-to-javascript/tree/master/examples">Demo source files</a></p>
           </section>
         </section>
 
