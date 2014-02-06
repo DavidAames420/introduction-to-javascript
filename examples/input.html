@@ -7,6 +7,12 @@
     </style>
 
     <script>
+      function clearItems() {
+        var container = document.getElementById('container');
+
+        container.innerHTML = '';
+      }
+
       function loadItems(callback) {
         var xmlhttp = new XMLHttpRequest();
 
@@ -26,20 +32,20 @@
         }
       }
 
-      function removeItem(item) {
+      function removeItem(itemElement) {
         var container = document.getElementById('container');
 
-        container.removeChild(item);
+        container.removeChild(itemElement);
       }
 
       function addItem(title) {
         var container = document.getElementById('container');
 
-        var newItem = document.createElement('li');
+        var newItemElement = document.createElement('li');
 
-        newItem.innerHTML = title + ' <span class="remove">(x)</span>';
+        newItemElement.innerHTML = title + ' <span class="remove">(x)</span>';
 
-        container.appendChild(newItem);
+        container.appendChild(newItemElement);
       }
 
       function ready() {
@@ -66,6 +72,12 @@
         loadButton.addEventListener('click', function(event) {
           loadItems(addItems);
         }, false);
+
+        var clearButton = document.getElementById('clear-items');
+
+        clearButton.addEventListener('click', function(event) {
+          clearItems();
+        }, false);
       }
 
       window.onload = ready;
@@ -73,14 +85,19 @@
   </head>
 
   <body>
-    <input id="add-item" type="text"/>
+
+    <h4>My nice list:</h4>
 
     <input type="button" id="load-items" value="Load!"/>
-    <p>My nice list</p>
+    <input type="button" id="clear-items" value="Clear!"/>
+
     <ul id="container">
       <li>item <span class='remove'>(x)</span></li>
       <li>another item <span class='remove'>(x)</span></li>
     </ul>
+
+    <input id="add-item" placeholder="Add an item" type="text"/>
+
   </body>
 </html>
 
