@@ -59,71 +59,30 @@
         </section>
 
         <section>
+          <h2>What is JavaScript?</h2>
+          <p>A dynamic object-oriented general-purpose programming language</p>
+        </section>
 
-          <section>
-            <h2>HTML</h2>
-            <p>Provides structure & semantic content</p>
-            <pre><code data-trim >
-<p>This is a paragraph</p>
-<ul>
-  <li>item</li>
-  <li>another item</li>
-</ul>
-            </code></pre>
-          </section>
-
-          <section>
-            <h2>CSS</h2>
-            <p>Provides style</p>
-            <pre><code data-trim >
-<style>
-  li.selected { background: yellow; }
-</style>
-            ...
-<p>This is a paragraph</p>
-<ul>
-  <li class="selected">item</li>
-  <li>another item</li>
-</ul>
-            </code></pre>
-          </section>
-
-          <section>
-            <h2>JavaScript</h2>
-            <p>Provides interactivity</p>
-            <pre><code data-trim >
-<style>
-  li.selected { background: yellow; }
-</style>
-
-<script>
-  function clickHandler(event) {
-    event.target.classList.add('selected');
-  }
-</script>
-            ...
-<p>This is a paragraph</p>
-<ul onclick="clickHandler(event)">
-  <li>item</li>
-  <li>another item</li>
-</ul>
-            </code></pre>
-          </section>
+        <section>
+          <h2>History</h2>
+          <ul>
+            <li>Developed in 10 days in May 1995 by Brendan Eich at Netscape</li>
+            <li>Names: Mocha, LiveScript then JavaScript</li>
+          </ul>
         </section>
 
         <section>
           <section>
-            <h1>JavaScript</h1>
-            <h2>(ECMAScript)</h2>
+            <h1>ECMAScript</h1>
           </section>
 
           <section>
-            <p>The core language</p>
+            <p>Standard of the core language of JavaScript</p>
             <p>Also used in non-browser environments e.g. <a href="http://nodejs.org" target="_blank">node.js</a></p>
           </section>
 
           <section>
-            <p>Porvides:</p>
+            <p>Provides:</p>
             <ul>
               <li>Syntax</li>
               <li>Types</li>
@@ -133,6 +92,92 @@
               <li>Global object (Non-browser APIs)</li>
             </ul>
           </section>
+          <section>
+            <p>Versions of ECMA-262:</p>
+            <ul>
+              <li>ES3 (Dec 1999)</li>
+              <li>ES5 (Dec 2009)</li>
+              <li>ES5.1 (Jun 2011)</li>
+              <li>ES6 / ES 2015 (Jun 2015)</li>
+            </ul>
+          </section>
+        </section>
+
+        <section id="syntax">
+          <section>
+            <h2>Syntax</h2>
+            <h3>C-like (similar to Java)</h3>
+          </section>
+          <section>
+            <h3>Comments</h3>
+            <pre><code>// one line comment
+
+/*
+  Multi-line
+  comment
+*/</code></pre>
+          </section>
+           <section>
+              <h3>Variables</h3>
+              <p>Declared using <code>var</code></p>
+            <pre><code>
+var x = 2;   // x is declared and initialized
+
+var y;       // y is only declared (value is undefined)
+
+function test() {
+  var z = 3;
+  k = 5;    // missing var
+}
+
+// x, y & k are global variables
+// z is a local variable
+</code></pre>
+
+            </section>
+           <section>
+              <h3>Block statement</h3>
+              <p>Declared using <code>var</code></p>
+            <pre><code>
+var x = 1;
+{
+  var x = 2;
+}
+console.log(x); // outputs 2</code></pre>
+
+            </section>
+
+           <section>
+              <h3>Conditional statement</h3>
+            <pre><code>
+if (x == 'yes') {
+  doSomething();
+} else {
+  doSomethingElse();
+}
+
+if (x == 'yes') {
+  doSomething();
+} else if (x == 'no') {
+  doSomethingElse();
+}
+</code></pre>
+
+            </section>
+           <section>
+              <h3>Loops</h3>
+            <pre><code>
+for (var x = 0; x < 10; x++) {
+  doSomething(x);
+}
+
+while (x < 10) {
+  doSomething(x);
+  x++;
+}
+</code></pre>
+
+            </section>
         </section>
 
         <section id="types">
@@ -598,14 +643,16 @@ sum(4, 8, 15, 16, 23, 42)         // 108
             <p>Only function scope</p>
             <pre><code data-trim>
 function foo () {
-  var a = 3, b = 5;
+  var x = 1;
 
   var bar = function () {
-    var b = 7, c = 11;
-    a += b + c;
+    var x = 2
+    console.log(x); // 2
   };
 
   bar();
+
+  console.log(x) // 1
 };
           </code></pre>
           </section>
@@ -692,10 +739,59 @@ a.unshift([item])       // Add one item to the start
         </section>
 
         <section>
-          <h1>Manipulating the HTML</h1>
+          <h1>Manipulating Webpage Elements</h1>
         </section>
 
         <section>
+          <section>
+            <h2>HTML</h2>
+            <p>Provides structure & semantic content</p>
+            <pre><code data-trim >
+<p>This is a paragraph</p>
+<ul>
+  <li>item</li>
+  <li>another item</li>
+</ul>
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>CSS</h2>
+            <p>Provides style</p>
+            <pre><code data-trim >
+<style>
+  li.selected { background: yellow; }
+</style>
+            ...
+<p>This is a paragraph</p>
+<ul>
+  <li class="selected">item</li>
+  <li>another item</li>
+</ul>
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>JavaScript</h2>
+            <p>Provides interactivity</p>
+            <pre><code data-trim >
+<style>
+  li.selected { background: yellow; }
+</style>
+
+<script>
+  function clickHandler(event) {
+    event.target.classList.add('selected');
+  }
+</script>
+            ...
+<p>This is a paragraph</p>
+<ul onclick="clickHandler(event)">
+  <li>item</li>
+  <li>another item</li>
+</ul>
+            </code></pre>
+          </section>
           <section>
             <h2>How to run JavaScript in a Webpage?</h2>
           </section>
